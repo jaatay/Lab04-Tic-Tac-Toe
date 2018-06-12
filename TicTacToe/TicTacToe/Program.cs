@@ -11,7 +11,6 @@ namespace TicTacToe
 	
 		}
 
-		
 		//global value types
 		public static string playerOneName;
 		public static string playerTwoName;
@@ -21,19 +20,16 @@ namespace TicTacToe
 		public static bool playerOneTurn = true;
 		public static bool playerTwoTurn = false;
 
-
 		/// <summary>
 		/// method to initialize the game
 		/// </summary>
 		public static void InitializeGame()
 		{
-		
 		CreatePeople();
 		WelcomeMessage();
 		while (playGame)
 		{
 			WhoseTurnIsIt();
-
 		}
 		PlayAgain();
 		}
@@ -60,11 +56,11 @@ namespace TicTacToe
 				{
 					throw new FormatException();
 				}
-				
 			}
 			catch (FormatException)
 			{
 				Console.WriteLine("Please enter valid input.");
+			
 			}
 
 			Console.WriteLine("Player Two, please enter your name.");
@@ -79,6 +75,7 @@ namespace TicTacToe
 			catch(FormatException)
 			{
 				Console.WriteLine("Please enter valid input.");
+
 			}
 		}
 		
@@ -106,7 +103,7 @@ namespace TicTacToe
 
 			if (playerOneTurn)
 			{
-
+				
 				Console.WriteLine($"{playerOneName}, choose your position.");
 				playerOneChoices += ChoosePosition();
 
@@ -127,13 +124,38 @@ namespace TicTacToe
 				}
 
 				Console.Clear();
+
+				if (playerOneChoices.Length == 5)
+				{
+					Console.WriteLine("The game is a draw!");
+					Console.ReadLine();
+
+					playGame = false;
+					playerTwoTurn = false;
+				}
+
 				NewGame.UpdatePositions(playerOneArray, playerTwoArray, NewGame.NewBoard, "X", "O");
 				CheckGame.CheckWinner(playerOneArray, playerTwoArray);
 				Console.WriteLine("Press any key to continue.");
 				Console.ReadLine();
 
+				if (playerOneChoices.Length == 5)
+				{
+					Console.WriteLine("The game is a draw!");
+					playGame = false;
+					playerTwoTurn = false;
+				}
+
 				if (playGame)
 				{
+					if (playerOneChoices.Length == 5)
+					{
+						Console.WriteLine("The game is a draw!");
+						Console.ReadLine();
+						playGame = false;
+						playerTwoTurn = false;
+					}
+
 					playerTwoTurn = true;
 					playerOneTurn = false;
 				}
@@ -142,7 +164,7 @@ namespace TicTacToe
 
 			if (playerTwoTurn)
 			{
-			
+				
 				Console.WriteLine($"{playerTwoName}, choose your postion.");
 				playerTwoChoices += ChoosePosition();
 
@@ -170,6 +192,7 @@ namespace TicTacToe
 
 				if (playGame)
 				{
+					
 					playerTwoTurn = false;
 					playerOneTurn = true;
 				}
@@ -179,13 +202,14 @@ namespace TicTacToe
 		/// <summary>
 		/// method to choose position on the board based on user input. 
 		/// </summary>
-		/// <returns>returns a string corresponding to the user input.</returns>
+		
 		public static string ChoosePosition()
 		{
 			try
 			{
 				string newPosition = Console.ReadLine();
-				if (newPosition == "" || newPosition == null)
+				Int32.TryParse(newPosition, out int newPositionInt);
+				if (newPosition == "" || newPosition == null || newPositionInt > 9 || newPositionInt < 1 )
 				{
 					throw new FormatException();
 				}
@@ -209,19 +233,28 @@ namespace TicTacToe
 			Console.WriteLine("Play another game?");
 			Console.WriteLine("1. Yes");
 			Console.WriteLine("2. No");
-			
-			string playerChoice = Console.ReadLine();
 
-			if(playerChoice == "1")
+			try
 			{
-				playGame = true;
-				playerOneChoices = "";
-				playerTwoChoices = "";
-				InitializeGame();
-			}
+				string playerChoice = Console.ReadLine();
 
-			playGame = false;
-			Console.WriteLine("Press any key to exit.");
+				if (playerChoice == "1")
+				{
+					playGame = true;
+					playerOneChoices = "";
+					playerTwoChoices = "";
+					InitializeGame();
+				}
+
+				playGame = false;
+				Console.WriteLine("Press any key to exit.");
+
+			}
+			catch(Exception)
+			{
+				Console.WriteLine("Please enter a valid input.");
+			}
+			
 			
 		}
 
