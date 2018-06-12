@@ -7,18 +7,27 @@ namespace TicTacToe
 {
 	public class Game
 	{
-		public string CheckWinner(string[] userOne, string[] userTwo)
+		/// <summary>
+		/// method to check if there is a winner after every turn, converting the user arrays into strings for evaluation
+		/// </summary>
+		/// <param name="userOne">input parameter of user choice array for user one</param>
+		/// <param name="userTwo">input parameter of user choice array for user two</param>
+		
+		public void CheckWinner(string[] userOne, string[] userTwo)
 		{
 			string userOneValues = String.Join("", userOne);
 			string userTwoValues = String.Join("", userTwo);
 			
-
 			CheckOnePlayer(userOneValues, "One");
 			CheckOnePlayer(userTwoValues, "Two");
-
-			return "";
 		}
 
+		/// <summary>
+		/// method to check the user input strings against the winning conditions
+		/// </summary>
+		/// <param name="playerInput">string of user choices for player one</param>
+		/// <param name="whichPlayer">string of user choices for player two</param>
+		/// <returns>boolean value, returned to either continue while loop or exit</returns>
 		public bool CheckOnePlayer(string playerInput, string whichPlayer)
 		{
 			if (playerInput.Contains("1") && playerInput.Contains("2") && playerInput.Contains("3"))

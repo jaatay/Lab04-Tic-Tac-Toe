@@ -7,20 +7,11 @@ namespace TicTacToe
 
 		static void Main(string[] args)
 		{
-
-			CreatePeople();
-			WelcomeMessage();
-			while (playGame)
-			{
-				WhoseTurnIsIt();
-			}
-			
+			InitializeGame();
+	
 		}
 
-		//global reference types
-		public static GameBoard NewGame = new GameBoard();
-		public static Game CheckGame = new Game();
-
+		
 		//global value types
 		public static string playerOneName;
 		public static string playerTwoName;
@@ -30,10 +21,30 @@ namespace TicTacToe
 		public static bool playerOneTurn = true;
 		public static bool playerTwoTurn = false;
 
-		//initialize game
+
+		/// <summary>
+		/// method to initialize the game
+		/// </summary>
+		public static void InitializeGame()
+		{
 		
+		CreatePeople();
+		WelcomeMessage();
+		while (playGame)
+		{
+			WhoseTurnIsIt();
+
+		}
+		PlayAgain();
+		}
+		
+		/// <summary>
+		/// method to create new users, assign user input to name variable
+		/// </summary>
 		public static void CreatePeople() {
 			Console.Clear();
+			GameBoard NewGame = new GameBoard();
+			Game CheckGame = new Game();
 			NewGame.DrawBoard(NewGame.NewBoard);
 			Person playerOne = new Person();
 			Person playerTwo = new Person();
@@ -71,9 +82,13 @@ namespace TicTacToe
 			}
 		}
 		
+		/// <summary>
+		/// method to tell users who is X and who is O, draws initial board
+		/// </summary>
 		public static void WelcomeMessage()
 		{
 			Console.Clear();
+			GameBoard NewGame = new GameBoard();
 			NewGame.DrawBoard(NewGame.NewBoard);
 			Console.WriteLine($"{playerOneName} is X.");
 			Console.WriteLine($"{playerTwoName} is O.");
@@ -81,8 +96,14 @@ namespace TicTacToe
 			Console.ReadLine();
 		}
 
+		/// <summary>
+		/// method to switch between users, taking user input and sending info to update board, check against winning conditions
+		/// </summary>
 		public static void WhoseTurnIsIt()
 		{
+			GameBoard NewGame = new GameBoard();
+			Game CheckGame = new Game();
+
 			if (playerOneTurn)
 			{
 
@@ -108,9 +129,15 @@ namespace TicTacToe
 				Console.Clear();
 				NewGame.UpdatePositions(playerOneArray, playerTwoArray, NewGame.NewBoard, "X", "O");
 				CheckGame.CheckWinner(playerOneArray, playerTwoArray);
+				Console.WriteLine("Press any key to continue.");
+				Console.ReadLine();
 
-				playerTwoTurn = true;
-				playerOneTurn = false;
+				if (playGame)
+				{
+					playerTwoTurn = true;
+					playerOneTurn = false;
+				}
+				
 			}
 
 			if (playerTwoTurn)
@@ -138,12 +165,21 @@ namespace TicTacToe
 				Console.Clear();
 				NewGame.UpdatePositions(playerOneArray, playerTwoArray, NewGame.NewBoard, "X", "O");
 				CheckGame.CheckWinner(playerOneArray, playerTwoArray);
+				Console.WriteLine("Press any key to continue.");
+				Console.ReadLine();
 
-				playerTwoTurn = false;
-				playerOneTurn = true;
+				if (playGame)
+				{
+					playerTwoTurn = false;
+					playerOneTurn = true;
+				}
 			}
 		}
 
+		/// <summary>
+		/// method to choose position on the board based on user input. 
+		/// </summary>
+		/// <returns>returns a string corresponding to the user input.</returns>
 		public static string ChoosePosition()
 		{
 			try
@@ -162,6 +198,31 @@ namespace TicTacToe
 			}
 
 			return "";
+		}
+
+		/// <summary>
+		/// method to ask if the user wants to play again after the game is finished. If so, it initializes another game. If not, exit program.
+		/// </summary>
+		public static void PlayAgain()
+		{
+			Console.Clear();
+			Console.WriteLine("Play another game?");
+			Console.WriteLine("1. Yes");
+			Console.WriteLine("2. No");
+			
+			string playerChoice = Console.ReadLine();
+
+			if(playerChoice == "1")
+			{
+				playGame = true;
+				playerOneChoices = "";
+				playerTwoChoices = "";
+				InitializeGame();
+			}
+
+			playGame = false;
+			Console.WriteLine("Press any key to exit.");
+			
 		}
 
 	}
