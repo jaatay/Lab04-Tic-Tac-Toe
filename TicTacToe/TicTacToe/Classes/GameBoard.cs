@@ -51,6 +51,7 @@ namespace TicTacToe{
 						if (inputArray[i, j].Contains(item))
 						{
 							inputArray[i, j] = playerOneMarker;
+		
 						}
 						
 					}
@@ -78,14 +79,12 @@ namespace TicTacToe{
 			{
 				for (int j = 0; j < inputArray.GetLength(1); j++)
 				{
-					
 					Console.Write($"|{inputArray[i, j]}|");
 				}
 				Console.WriteLine("");
 			}
 		}
-		
-
+	
 	}
 }
 

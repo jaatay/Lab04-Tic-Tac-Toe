@@ -101,6 +101,8 @@ namespace TicTacToe
 			GameBoard NewGame = new GameBoard();
 			Game CheckGame = new Game();
 
+			int turnCount = 0;
+
 			if (playerOneTurn)
 			{
 				
@@ -125,7 +127,7 @@ namespace TicTacToe
 
 				Console.Clear();
 
-				if (playerOneChoices.Length == 5)
+				if (turnCount == 9)
 				{
 					Console.WriteLine("The game is a draw!");
 					Console.ReadLine();
@@ -139,23 +141,9 @@ namespace TicTacToe
 				Console.WriteLine("Press any key to continue.");
 				Console.ReadLine();
 
-				if (playerOneChoices.Length == 5)
-				{
-					Console.WriteLine("The game is a draw!");
-					playGame = false;
-					playerTwoTurn = false;
-				}
-
 				if (playGame)
 				{
-					if (playerOneChoices.Length == 5)
-					{
-						Console.WriteLine("The game is a draw!");
-						Console.ReadLine();
-						playGame = false;
-						playerTwoTurn = false;
-					}
-
+					turnCount++;
 					playerTwoTurn = true;
 					playerOneTurn = false;
 				}
@@ -192,7 +180,7 @@ namespace TicTacToe
 
 				if (playGame)
 				{
-					
+					turnCount++;
 					playerTwoTurn = false;
 					playerOneTurn = true;
 				}
@@ -202,7 +190,6 @@ namespace TicTacToe
 		/// <summary>
 		/// method to choose position on the board based on user input. 
 		/// </summary>
-		
 		public static string ChoosePosition()
 		{
 			try
