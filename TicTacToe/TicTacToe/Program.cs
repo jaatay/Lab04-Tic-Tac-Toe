@@ -14,16 +14,14 @@ namespace TicTacToe
 			{
 				WhoseTurnIsIt();
 			}
-			/*
-			NewGame.DrawBoard(NewGame.NewBoard);
-			Console.WriteLine("");
-			NewGame.UpdatePositions(playerOneChoices, playerTwoChoices, NewGame.NewBoard, "X", "O");
-			CheckGame.CheckWinner(playerOneChoices, playerTwoChoices);
-			*/
+			
 		}
+
+		//global reference types
 		public static GameBoard NewGame = new GameBoard();
 		public static Game CheckGame = new Game();
-		//globals
+
+		//global value types
 		public static string playerOneName;
 		public static string playerTwoName;
 		public static string playerOneChoices = "";
@@ -34,10 +32,6 @@ namespace TicTacToe
 
 		//initialize game
 		
-			
-		
-	
-		//
 		public static void CreatePeople() {
 			Console.Clear();
 			NewGame.DrawBoard(NewGame.NewBoard);
