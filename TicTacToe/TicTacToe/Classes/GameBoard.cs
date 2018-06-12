@@ -6,11 +6,6 @@ namespace TicTacToe{
 
 	public class GameBoard
 	{
-		public void WelcomeMessage()
-		{
-			Console.WriteLine("I am here now");
-			
-		}
 
 		public string[,] NewBoard = {
 									{ "1", "2", "3" },

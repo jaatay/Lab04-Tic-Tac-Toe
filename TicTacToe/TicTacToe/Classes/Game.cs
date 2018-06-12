@@ -11,10 +11,9 @@ namespace TicTacToe
 		{
 			string userOneValues = String.Join("", userOne);
 			string userTwoValues = String.Join("", userTwo);
-			Console.WriteLine($"User One values are: {userOneValues}");
-			Console.WriteLine($"User Two values are: {userTwoValues}");
+			
 
-			//user one wins
+			
 			CheckOnePlayer(userOneValues, "One");
 			CheckOnePlayer(userTwoValues, "Two");
 
